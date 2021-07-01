@@ -1,0 +1,62 @@
+.timeline {
+  background-color: #ddd;
+  height: 100%;
+  padding-top: 24px;
+}
+
+.timelineHeader {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  letter-spacing: 0.1;
+  width: 90%;
+}
+
+.timelineHeader_title {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.timelineHeader_button {
+  height: 1.7rem;
+}
+
+.timelineInner {
+  width: 90%;
+  margin: 32px auto 0 auto;
+}
+
+.timelineInner_button {
+  background: Deepskyblue;
+  border-radius: 16px;
+  color: white;
+  display: flex;
+  font-size: 1.2rem;
+  font-size: bolder;
+  padding: 8px 0;
+  justify-content: center;
+  margin: 0 auto;
+  width: 70%;
+}
+
+.timelineInner_button:hover {
+  background-color: #c2d1ee;
+}
+
+.timelineCard {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 16px;
+  display: flex;
+  margin-top: 20px;
+  padding: 24px;
+  width: 100%;
+}
+
+.timelineCard_icon {
+  height: 40px;
+}
+
+.timelineCard_title {
+  margin-left: 8px;
+}
