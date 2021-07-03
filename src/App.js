@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import './assets/styles/App.css';
-import { Timeline, Post } from './screens/index';
+import { Timeline, Post, Content } from './screens/index';
 
 function App() {
-  const [mainScreen, setMainScreen] = useState("Timeline");
+  const [mainScreen, setMainScreen] = useState("Content");
   const [subjectName, setSubjectName] = useState();
 
   useEffect(() => {
@@ -21,6 +21,7 @@ function App() {
     <div className="App">
       <Timeline mainScreen={mainScreen} handleMainScreen={handleMainScreen} title={subjectName} />
       <Post mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
+      <Content mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
     </div>
   );
 }

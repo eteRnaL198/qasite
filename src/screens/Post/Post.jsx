@@ -16,7 +16,7 @@ const Post = ({mainScreen, handleMainScreen}) => {
       </div>
       <footer className="postFooter">
         <button className="postFooter_button postFooter_button-cancel" onClick={() => { handleMainScreen("Timeline") }}>キャンセル</button>
-        <button className="postFooter_button postFooter_button-post">投稿</button>
+        <button className="postFooter_button postFooter_button-post" onClick={() => { handleMainScreen("Timeline") }}>投稿</button>
       </footer>
     </div>
   )
