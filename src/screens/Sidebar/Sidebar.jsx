@@ -2,8 +2,7 @@ import { Card } from "./index";
 import "../../assets/styles/Sidebar.css";
 import Cross from "../../assets/images/cross.svg";
 
-const Sidebar = ({isSidebarOpen, handleSidebarOpen}) => {
-  const data = ["プログラミング(3)", "オブジェクト指向プログラミング", "パターン認識", "人工知能", "データベースシステム"];
+const Sidebar = ({subjectNames, isSidebarOpen, handleSidebarOpen}) => {
   return (
     <div className={`sidebar ${(isSidebarOpen) ? "sidebar-on" : ""}`}>
       <div className="sidebarTop">
@@ -13,8 +12,8 @@ const Sidebar = ({isSidebarOpen, handleSidebarOpen}) => {
         </button>
       </div>
       <div className="sidebarInner">
-        {data.map((title, idx) => (
-          <Card title={title} key={idx} />
+        {subjectNames.map((title, idx) => (
+          <Card title={title} key={idx} handleSidebarOpen={handleSidebarOpen} />
         ))}
       </div>
     </div>
