@@ -12,7 +12,7 @@ export const HandleContentDataContext = createContext();
 function App() {
   const [mainScreen, setMainScreen] = useState("Timeline");
   const [allData, setAllData] = useState([]);
-  const [subjectData, setSubjectData] = useState({"subjects": "","posts": []});
+  const [subjectData, setSubjectData] = useState({"name": "","posts": []});
   const [subjectIdx, setSubjectIdx] = useState(0);
   const [contentData, setContentData] = useState({});
   
@@ -30,13 +30,17 @@ function App() {
     }
     const db = firebase.firestore();
     (async () => {
-      await db.collection("data").doc("eGTIlnmcicg0pXUMJMkN").get().then((doc) => {
-        const data = doc.data();
-        setAllData(data.data);
-        setSubjectData(data.data[0]);
+      const tempData = [];
+      await db.collection("subjects").get().then(snapshot => {
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          tempData.push(data);
+        })
       });
+      setAllData(tempData);
+      setSubjectData(tempData[0]);
     })();
-    writeData();
+    // writeData();
   }, []);
 
   const handleMainScreen = (screen) => {

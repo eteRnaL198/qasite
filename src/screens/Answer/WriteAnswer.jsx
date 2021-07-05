@@ -9,11 +9,13 @@ const WriteAnswer = ({handleViewMode}) => {
   const sendAnswer = () => {
     const db = firebase.firestore();
     (async () => {
-      const ref = db.collection("data").doc("eGTIlnmcicg0pXUMJMkN");
-      await ref.child().update({
-        "answers": firebase.firestore.FieldValue.arrayUnion("hello"),
-      })
+      // await db.collection("subjects").where("name", "==", "ハードウェア記述言語").get().then(snapshot => {
+      //   snapshot.forEach(doc => {
+      //     const data = doc.data();
+      //   })
+      // });
     })();
+
   }
 
   const handleTextChange = (e) => {

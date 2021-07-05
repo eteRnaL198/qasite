@@ -145,14 +145,39 @@ const writeData = () => {
   (async () => {
     const db = firebase.firestore();
     // await db.collection("data").doc("eGTIlnmcicg0pXUMJMkN").set(data);
-    Object.keys(subjects).forEach((subject) => {
+    // Object.keys(subjects).forEach((subject) => {
       // await db.collectionGroup("subjects").doc(subject).
       // subjects[subject].name;
-      subjects[subject].posts.forEach(post => {
-        // await db.collection("subjects").doc(subject).collection("posts").doc();
-      });
+      // subjects[subject].posts.forEach(post => {
+      //   await db.collection("subjects").doc(subject).collection("posts").doc();
+      // });
       // subject.posts;
+    // });
+    const temp = {
+      question: {
+        title: "たいとる",
+        purpose: "もくてき",
+      },
+      answers: {
+        answer: "かいとう",
+        thumbs: 5,
+      },
+    }
+    db.collection("subjects").get().then(snapshot => {
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        console.log(doc);
+      })
+    })
+    await db.collection("subjects").where("name", "==", "ハードウェア記述言語").get().then(snapshot => {
+      snapshot.forEach(doc => {
+        const data = doc.data();
+      })
     });
+    // db.collection("subjects").doc("subject1").update({
+    //   posts: firebase.firestore.FieldValue.arrayUnion(temp)
+    // })
+
   })();
 }
 
