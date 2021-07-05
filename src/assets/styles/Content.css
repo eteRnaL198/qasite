@@ -1,3 +1,6 @@
-.Content_back {
+.content_back {
   height: 1.3rem;
+}
+.contentItem {
+  display: flex;
 }

@@ -1,16 +1,20 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import './assets/styles/App.css';
 import { Timeline, Post, Content } from './screens/index';
 import writeData from "./data";
 
+export const AllDataContext = createContext();
+export const HandleSubjectDataContext = createContext();
+export const HandleContentDataContext = createContext();
+
 function App() {
-  const [mainScreen, setMainScreen] = useState("Content");
-  const [data, setData] = useState();
-  const [subjectNames, setSubjectNames] = useState("オブジェクト指向プログラミング");
-  const [titles, setTitles] = useState();
-  const [contentData, setContentData] = useState();
+  const [mainScreen, setMainScreen] = useState("Timeline");
+  const [allData, setAllData] = useState([]);
+  const [subjectData, setSubjectData] = useState({"subjects": "","posts": []});
+  const [subjectIdx, setSubjectIdx] = useState(0);
+  const [contentData, setContentData] = useState({});
   
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -25,29 +29,41 @@ function App() {
       });
     }
     const db = firebase.firestore();
-    db.collection("data").doc("eGTIlnmcicg0pXUMJMkN").get().then((doc) => {
-      const data = doc.data();
-      setData(data.data);
-      setSubjectNames(data.data.map(elem => (elem.subject)));
-      setContentData(data.data[0].posts);
-      setTitles(data.data[0].posts.map(elem => (elem.question.title)));
-      console.log(data.data[0].posts);
-    })
-    // writeData();
-
-    // setContentData(一番上の要素のposts);
+    (async () => {
+      await db.collection("data").doc("eGTIlnmcicg0pXUMJMkN").get().then((doc) => {
+        const data = doc.data();
+        setAllData(data.data);
+        setSubjectData(data.data[0]);
+      });
+    })();
+    writeData();
   }, []);
 
   const handleMainScreen = (screen) => {
     setMainScreen(screen);
   }
-  const handleSubjectName = (name) => {
-    setSubjectNames(name);
+
+  const handleSubjectData = (data) => {
+    setSubjectData(data);
+  }
+
+  const handleSubjectIdx = (idx) => {
+    setSubjectIdx(idx);
+  }
+
+  const handleContentData = (data) => {
+    setContentData(data);
   }
 
   return (
     <div className="App">
-      <Timeline subjectNames={subjectNames} questionTitles={titles} mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
+      <AllDataContext.Provider value={allData}>
+        <HandleSubjectDataContext.Provider value={handleSubjectData}>
+          <HandleContentDataContext.Provider value={handleContentData}>
+            <Timeline subjectData={subjectData} mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
+          </HandleContentDataContext.Provider>
+        </HandleSubjectDataContext.Provider>
+      </AllDataContext.Provider>
       <Post mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
       <Content contentData={contentData} mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
     </div>

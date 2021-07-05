@@ -42,9 +42,52 @@ const data = {
         ]
       }
     ]
+  },]
+}
+const subjects = {
+  "subject1": {
+    "name": "オブジェクト指向プログラミング",
+    "posts": [
+      {
+        "question": {
+          "title": "タイトル",
+          "purpose": "これがやりたい",
+          "unknown": "ここが理解できない",
+          "tried": "ここまでできた"
+        },
+        "answers": [
+          {
+            "answer": "こうしたほうがいいよ",
+            "thumbs": 10
+          },
+          {
+            "answer": "こうするとできるよ",
+            "thumbs": 10
+          }
+        ]
+      },
+      {
+        "question": {
+          "title": "タイトル2",
+          "purpose": "これがやりたいんです",
+          "unknown": "ここがわかりません",
+          "tried": "ここまでやりました"
+        },
+        "answers" : [
+          {
+            "answer": "こうするといいですよ",
+            "thumbs": 10
+          },
+          {
+            "answer": "こうしたほうがいいですよ",
+            "thumbs": 10
+          }
+        ]
+      }
+    ]
   },
-  {
-    "subject": "ハードウェア記述言語",
+  "subject2": {
+    "name": "ハードウェア記述言語",
     "posts": [
       {
         "question": {
@@ -83,8 +126,8 @@ const data = {
         ]
       }
     ]
-  }
-]}
+  },
+}
 
 const writeData = () => {
   if(!firebase.apps.length) {
@@ -101,7 +144,15 @@ const writeData = () => {
 
   (async () => {
     const db = firebase.firestore();
-    await db.collection("data").doc("eGTIlnmcicg0pXUMJMkN").set(data);
+    // await db.collection("data").doc("eGTIlnmcicg0pXUMJMkN").set(data);
+    Object.keys(subjects).forEach((subject) => {
+      // await db.collectionGroup("subjects").doc(subject).
+      // subjects[subject].name;
+      subjects[subject].posts.forEach(post => {
+        // await db.collection("subjects").doc(subject).collection("posts").doc();
+      });
+      // subject.posts;
+    });
   })();
 }
 

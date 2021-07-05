@@ -1,8 +1,12 @@
+import { useContext } from "react";
+import { AllDataContext } from "../../App";
 import { Card } from "./index";
 import "../../assets/styles/Sidebar.css";
 import Cross from "../../assets/images/cross.svg";
 
-const Sidebar = ({subjectNames, isSidebarOpen, handleSidebarOpen}) => {
+const Sidebar = ({isSidebarOpen, handleSidebarOpen}) => {
+  const allData = useContext(AllDataContext);
+
   return (
     <div className={`sidebar ${(isSidebarOpen) ? "sidebar-on" : ""}`}>
       <div className="sidebarTop">
@@ -12,8 +16,8 @@ const Sidebar = ({subjectNames, isSidebarOpen, handleSidebarOpen}) => {
         </button>
       </div>
       <div className="sidebarInner">
-        {subjectNames.map((title, idx) => (
-          <Card title={title} key={idx} handleSidebarOpen={handleSidebarOpen} />
+        {allData.map((data, idx) => (
+          <Card allData={allData} title={data.subject} key={idx} handleSidebarOpen={handleSidebarOpen} />
         ))}
       </div>
     </div>

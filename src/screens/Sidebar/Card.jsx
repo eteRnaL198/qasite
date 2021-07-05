@@ -1,7 +1,11 @@
-const Card = ({title, handleSidebarOpen}) => {
-  // contextで科目名切り替え
+import { useContext } from "react";
+import { HandleSubjectDataContext } from "../../App";
+
+const Card = ({allData, title, handleSidebarOpen}) => {
+  const handleSubjectData = useContext(HandleSubjectDataContext);
+
   const handleClick = () => {
-    // タイムラインのデータ切り替え
+    handleSubjectData(() => allData.find(subjectData => subjectData.subject === title));
     handleSidebarOpen(false);
   }
 
