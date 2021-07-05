@@ -16,7 +16,7 @@ const Timeline = ({subjectData, mainScreen, handleMainScreen}) => {
       <Sidebar isSidebarOpen={isSidebarOpen} handleSidebarOpen={handleSidebarOpen} />
       <div className="timeline">
         <div className="timelineHeader">
-          <p className="timelineHeader_title">{subjectData.subject}</p>
+          <p className="timelineHeader_title">{subjectData.name}</p>
           <button onClick={() => {handleSidebarOpen(true)}}>
             <img className="timelineHeader_button" src={Button} alt="menu" />
           </button>

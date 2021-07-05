@@ -5,7 +5,7 @@ const Card = ({allData, title, handleSidebarOpen}) => {
   const handleSubjectData = useContext(HandleSubjectDataContext);
 
   const handleClick = () => {
-    handleSubjectData(() => allData.find(subjectData => subjectData.subject === title));
+    handleSubjectData(() => allData.find(subjectData => subjectData.name === title));
     handleSidebarOpen(false);
   }
 
