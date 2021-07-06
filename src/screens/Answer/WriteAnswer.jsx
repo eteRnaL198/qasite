@@ -3,26 +3,22 @@ import firebase from "firebase/app";
 import firestore from "firebase/firestore";
 import "../../assets/styles/Answer.css";
 
-const WriteAnswer = ({handleViewMode, posts}) => {
+const WriteAnswer = ({ subjectId, postId, handleViewMode }) => {
   const [text, setText] = useState("");
 
   const sendAnswer = () => {
-    const db = firebase.firestore();
-    (async () => {
-      let docId;
-      await db.collection("subjects").where("name", "==", "ハードウェア記述言語").get().then(snapshot => {
-        snapshot.docs.forEach(doc => {
-          docId = doc.id;
-      })});
-      const postId = "JLw6ydIrYB9TPxKlTQXb";
-      await db.collection("subjects").doc(docId).collection("posts").doc(postId).update({
-        "answers": firebase.firestore.FieldValue.arrayUnion({
-          "answer": text,
-          "thumbs": 0,
-        })
-      });
-    })();
-
+    if(text.trim() !== "") {
+      const db = firebase.firestore();
+      (async () => {
+        await db.collection("subjects").doc(subjectId).collection("posts").doc(postId).update({
+          "answers": firebase.firestore.FieldValue.arrayUnion({
+            "answer": text,
+            "thumbs": 0,
+          })
+        });
+        alert("送信しました");
+      })();
+    }
   }
 
   const handleTextChange = (e) => {
@@ -35,11 +31,13 @@ const WriteAnswer = ({handleViewMode, posts}) => {
   }
 
   return (
-    <>
-      <input type="text" onChange={handleTextChange} value={text} />
-      <button onClick={() => { handleViewMode(false) }}>キャンセル</button>
-      <button onClick={handleSendClick}>送信</button>
-    </>
+    <div className="answer_wrapper">
+      <textarea className="answer_input" type="text" rows="3" onChange={handleTextChange} value={text} />
+      <div className="answer_bottom">
+        <button className="answer_button answer_button-cancel" onClick={() => { handleViewMode(false) }}>キャンセル</button>
+        <button className="answer_button answer_button-send" onClick={handleSendClick}>送信</button>
+      </div>
+    </div>
   )
 }
 

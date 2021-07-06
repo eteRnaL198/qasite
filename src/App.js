@@ -12,9 +12,8 @@ export const HandleContentDataContext = createContext();
 function App() {
   const [mainScreen, setMainScreen] = useState("Timeline");
   const [allData, setAllData] = useState([]);
-  const [subjectData, setSubjectData] = useState({"name": "","posts": []});
-  const [subjectIdx, setSubjectIdx] = useState(0);
-  const [contentData, setContentData] = useState({});
+  const [subjectData, setSubjectData] = useState();
+  const [contentData, setContentData] = useState({}); // { "answers": [], "question": {}, "postId": "", }
   
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -29,18 +28,25 @@ function App() {
       });
     }
     const db = firebase.firestore();
+    const tempData = []; // { "name": "", "postIds": [], "subjectId": ""}
     (async () => {
-      const tempData = [];
       await db.collection("subjects").get().then(snapshot => {
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          tempData.push(data);
+        snapshot.docs.forEach(doc => {
+          const subjectId = doc.id;
+          const name = doc.data().name;
+          tempData.push({ "name": name, "postIds": [], "subjectId": subjectId});
+      })});
+      await tempData.forEach(subjectData => {
+        db.collection("subjects").doc(subjectData.subjectId).collection("posts").get().then(snapshot => {
+          snapshot.docs.forEach(doc => {
+            subjectData.postIds.push(doc.id);
+          })
         })
       });
       setAllData(tempData);
-      setSubjectData({ "name": tempData[0].name, "postIds": [] });
+      setSubjectData(tempData[0]);
+      // writeData();
     })();
-    // writeData();
   }, []);
 
   const handleMainScreen = (screen) => {
@@ -49,10 +55,6 @@ function App() {
 
   const handleSubjectData = (data) => {
     setSubjectData(data);
-  }
-
-  const handleSubjectIdx = (idx) => {
-    setSubjectIdx(idx);
   }
 
   const handleContentData = (data) => {
@@ -64,7 +66,11 @@ function App() {
       <AllDataContext.Provider value={allData}>
         <HandleSubjectDataContext.Provider value={handleSubjectData}>
           <HandleContentDataContext.Provider value={handleContentData}>
-            <Timeline subjectData={subjectData} mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
+            {typeof subjectData === "undefined" ? 
+              <p>Now Loading...</p>
+              :
+              <Timeline subjectData={subjectData} mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
+            }
           </HandleContentDataContext.Provider>
         </HandleSubjectDataContext.Provider>
       </AllDataContext.Provider>

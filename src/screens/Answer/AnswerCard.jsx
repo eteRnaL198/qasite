@@ -5,9 +5,12 @@ const AnswerCard = ({answer, thumbsNum}) => {
 
   const handleClick = () => {
     setThumbs(thumbs+1);
-    // await db.collection("subjects").doc(docId).collection("posts").doc("JLw6ydIrYB9TPxKlTQXb").update({
-      // "answers": firebase.firestore.FieldValue.increment(1)
-    // });
+    // const db = firebase.firestore();
+    // (async () => {
+    //   await db.collection("subjects").doc(subjectId).collection("posts").doc(postId).update({
+    //     "thumbs": firebase.firestore.FieldValue.
+    //   });
+    // })();
   }
 
   return (

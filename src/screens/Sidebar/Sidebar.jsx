@@ -16,8 +16,8 @@ const Sidebar = ({isSidebarOpen, handleSidebarOpen}) => {
         </button>
       </div>
       <div className="sidebarInner">
-        {allData.map((data, idx) => (
-          <Card allData={allData} title={data.name} key={idx} handleSidebarOpen={handleSidebarOpen} />
+        {allData.map((subjectData, idx) => (
+          <Card allData={allData} title={subjectData.name} key={idx} handleSidebarOpen={handleSidebarOpen} />
         ))}
       </div>
     </div>

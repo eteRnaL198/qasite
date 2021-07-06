@@ -6,7 +6,7 @@ import Back from "../../assets/images/back.svg";
 const Content = ({ contentData, mainScreen, handleMainScreen }) => {
   const [isViewMode, setIsViewMode] = useState(true);
   const items = {
-    "title": "タイトル",
+    "title": "",
     "purpose": "目的",
     "unknown": "わからないこと",
     "tried": "試したこと"
@@ -18,24 +18,26 @@ const Content = ({ contentData, mainScreen, handleMainScreen }) => {
 
   return (
     (mainScreen !== "Content") ? null :
-    <>
-      {(!isViewMode) ? null :
-        <button onClick={() => { handleMainScreen("Timeline") }}>
-          <img className="content_back" src={Back} alt="back" />
-        </button>
-      }
-      {Object.keys(items).map((key, idx) => (
-        <div key={idx} className="contentItem">
-          <p>{items[key]} : </p>
-          <p>{contentData.question[key]}</p>
-        </div>
-      ))}
+    <div className="content">
+      <div className="content_inner">
+        {(!isViewMode) ? null :
+          <button onClick={() => { handleMainScreen("Timeline") }}>
+            <img className="content_back" src={Back} alt="back" />
+          </button>
+        }
+        {Object.keys(items).map((key, idx) => (
+          <div key={idx} className="contentItem">
+            <p className="contentItem_title">{items[key]}</p>
+            <p className="contentItem_text">{contentData.question[key]}</p>
+          </div>
+        ))}
+      </div>
       {(isViewMode) ? 
         <ViewAnswer answerData={contentData.answers} handleViewMode={handleViewMode} />
         :
-        <WriteAnswer handleViewMode={handleViewMode} />
+        <WriteAnswer subjectId={contentData.subjectId} postId={contentData.postId} handleViewMode={handleViewMode} />
       }
-    </>
+    </div>
   )
 }
 

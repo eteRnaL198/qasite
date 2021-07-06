@@ -2,11 +2,11 @@ import { useContext } from "react";
 import { HandleContentDataContext } from "../../App";
 import Icon from "../../assets/images/user.jpg";
 
-const Card = ({ content, title, handleMainScreen }) => {
+const Card = ({ post, title, handleMainScreen }) => {
   const handleContentData = useContext(HandleContentDataContext);
   
   const handleClick = () => {
-    handleContentData(content);
+    handleContentData(post);
     handleMainScreen("Content");
   }
 

@@ -1,17 +1,38 @@
-import { useState } from "react";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { useState, useEffect } from "react";
 import { Card } from "./index";
 import { Sidebar } from "../index";
 import "../../assets/styles/Timeline.css";
 import Button from "../../assets/images/hamButton.svg";
 
 const Timeline = ({subjectData, mainScreen, handleMainScreen}) => {
+  const [postsData, setPostsData] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const handleSidebarOpen = (bool) => {
     setIsSidebarOpen(bool);
   }
 
+  useEffect(() => {
+    (async () => {
+      const db = firebase.firestore();
+      const tempPostsData = [];
+      await db.collection("subjects").doc(subjectData.subjectId).collection("posts").get().then(snapshot => {
+        snapshot.docs.forEach((doc, idx) => {
+          tempPostsData.push({
+            "answers": doc.data().answers,
+            "question": doc.data().question,
+            "postId": subjectData.postIds[idx],
+            "subjectId": subjectData.subjectId,
+          })
+        })
+      })
+      setPostsData(tempPostsData);
+    })();
+  }, []);
+
   return (
-    (mainScreen !== "Timeline") ? null :
+    (mainScreen !== "Timeline" || typeof subjectData === "undefined") ? null :
     <>
       <Sidebar isSidebarOpen={isSidebarOpen} handleSidebarOpen={handleSidebarOpen} />
       <div className="timeline">
@@ -24,9 +45,8 @@ const Timeline = ({subjectData, mainScreen, handleMainScreen}) => {
         <div className="timelineInner">
           <button className="timelineInner_button" onClick={() => { handleMainScreen("Post") }}>質問投稿</button>
           <div className="timelineCards">
-            {/* posts.map((post, idx) => ( */}
-            {subjectData.posts.map((post, idx) => (
-              <Card content={post} key={idx} title={post.question.title} handleMainScreen={handleMainScreen} />
+            {postsData.map((postData, idx) => (
+              <Card post={postData} key={idx} title={postData.question.title} handleMainScreen={handleMainScreen} />
             ))}
           </div>
         </div>

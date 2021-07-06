@@ -1,3 +1,44 @@
 .answer_userIcon {
   height: 2rem;
+  width: 2rem;
+}
+
+.answer_wrapper {
+  background-color: #ddd;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 0 auto;
+  padding: 24px 0;
+  width: 90%;
+}
+
+.answer_bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.answer_input {
+  background-color: #fff;
+  border-radius: 8px;
+  flex: 1;
+  margin: 0 auto 16px auto;
+  padding: 16px;
+  width: 100%;
+}
+
+.answer_button {
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  padding: 8px;
+  width: 48%;
+}
+
+.answer_button-send {
+  background-color: deepskyblue;
+}
+.answer_button-cancel {
+  background-color: #777;
 }
