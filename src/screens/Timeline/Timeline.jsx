@@ -24,6 +24,7 @@ const Timeline = ({subjectData, mainScreen, handleMainScreen}) => {
         <div className="timelineInner">
           <button className="timelineInner_button" onClick={() => { handleMainScreen("Post") }}>質問投稿</button>
           <div className="timelineCards">
+            {/* posts.map((post, idx) => ( */}
             {subjectData.posts.map((post, idx) => (
               <Card content={post} key={idx} title={post.question.title} handleMainScreen={handleMainScreen} />
             ))}

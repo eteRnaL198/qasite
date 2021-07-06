@@ -3,17 +3,24 @@ import firebase from "firebase/app";
 import firestore from "firebase/firestore";
 import "../../assets/styles/Answer.css";
 
-const WriteAnswer = ({handleViewMode}) => {
+const WriteAnswer = ({handleViewMode, posts}) => {
   const [text, setText] = useState("");
 
   const sendAnswer = () => {
     const db = firebase.firestore();
     (async () => {
-      // await db.collection("subjects").where("name", "==", "ハードウェア記述言語").get().then(snapshot => {
-      //   snapshot.forEach(doc => {
-      //     const data = doc.data();
-      //   })
-      // });
+      let docId;
+      await db.collection("subjects").where("name", "==", "ハードウェア記述言語").get().then(snapshot => {
+        snapshot.docs.forEach(doc => {
+          docId = doc.id;
+      })});
+      const postId = "JLw6ydIrYB9TPxKlTQXb";
+      await db.collection("subjects").doc(docId).collection("posts").doc(postId).update({
+        "answers": firebase.firestore.FieldValue.arrayUnion({
+          "answer": text,
+          "thumbs": 0,
+        })
+      });
     })();
 
   }

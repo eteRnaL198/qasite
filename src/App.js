@@ -38,7 +38,7 @@ function App() {
         })
       });
       setAllData(tempData);
-      setSubjectData(tempData[0]);
+      setSubjectData({ "name": tempData[0].name, "postIds": [] });
     })();
     // writeData();
   }, []);
