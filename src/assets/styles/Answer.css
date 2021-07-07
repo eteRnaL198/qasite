@@ -1,9 +1,58 @@
-.answer_userIcon {
-  height: 2rem;
-  width: 2rem;
+.viewAnswer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 24px 0;
+  overflow-y: scroll;
+}
+.viewAnswer_inner {
+  flex: 1;
+}
+.viewAnswer_button {
+  width: 60%;
+  background: deepskyblue;
+  color: #fff;
+  font-weight: bold;
+  padding: 8px;
+  text-align: center;
+  margin: 0 auto;
+  border-radius: 8px;
 }
 
-.answer_wrapper {
+.answerCard {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 24px auto;
+  padding: 24px;
+  width: 90%;
+}
+.answerCard_text {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+.answerCard_inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.answerCard_thumbWrapper {
+  display: flex;
+}
+.answerCard_thumb {
+  height: 1.5rem;
+}
+.answerCard_thumbNum {
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+  margin-left: 8px;
+}
+.answerCard_userIcon {
+  height: 3rem;
+}
+
+.writeAnswer_wrapper {
   background-color: #ddd;
   display: flex;
   flex-direction: column;
@@ -13,12 +62,12 @@
   width: 90%;
 }
 
-.answer_bottom {
+.writeAnswer_bottom {
   display: flex;
   justify-content: space-between;
 }
 
-.answer_input {
+.writeAnswer_input {
   background-color: #fff;
   border-radius: 8px;
   flex: 1;
@@ -27,7 +76,7 @@
   width: 100%;
 }
 
-.answer_button {
+.writeAnswer_button {
   border-radius: 8px;
   color: #fff;
   text-align: center;
@@ -36,9 +85,9 @@
   width: 48%;
 }
 
-.answer_button-send {
+.writeAnswer_button-send {
   background-color: deepskyblue;
 }
-.answer_button-cancel {
+.writeAnswer_button-cancel {
   background-color: #777;
 }

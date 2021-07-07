@@ -29,7 +29,7 @@ const Timeline = ({subjectData, mainScreen, handleMainScreen}) => {
       })
       setPostsData(tempPostsData);
     })();
-  }, []);
+  }, [subjectData.postIds, subjectData.subjectId]);
 
   return (
     (mainScreen !== "Timeline" || typeof subjectData === "undefined") ? null :

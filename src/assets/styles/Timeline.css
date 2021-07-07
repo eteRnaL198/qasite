@@ -2,6 +2,7 @@
   background-color: #ddd;
   height: 100%;
   padding-top: 24px;
+  overflow-y: scroll;
 }
 
 .timelineHeader {

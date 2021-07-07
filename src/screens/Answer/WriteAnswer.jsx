@@ -1,12 +1,13 @@
 import { useState } from "react";
 import firebase from "firebase/app";
-import firestore from "firebase/firestore";
+import "firebase/firestore";
 import "../../assets/styles/Answer.css";
 
 const WriteAnswer = ({ subjectId, postId, handleViewMode }) => {
   const [text, setText] = useState("");
 
   const sendAnswer = () => {
+    let result = false;
     if(text.trim() !== "") {
       const db = firebase.firestore();
       (async () => {
@@ -16,9 +17,10 @@ const WriteAnswer = ({ subjectId, postId, handleViewMode }) => {
             "thumbs": 0,
           })
         });
-        alert("送信しました");
       })();
+      result = true;
     }
+    return result;
   }
 
   const handleTextChange = (e) => {
@@ -26,16 +28,18 @@ const WriteAnswer = ({ subjectId, postId, handleViewMode }) => {
   }
 
   const handleSendClick = () => {
-    sendAnswer();
-    handleViewMode(false);
+    if(sendAnswer()) {
+      alert("送信しました");
+      handleViewMode(false);
+    } else alert("回答を入力してください");
   }
 
   return (
-    <div className="answer_wrapper">
-      <textarea className="answer_input" type="text" rows="3" onChange={handleTextChange} value={text} />
-      <div className="answer_bottom">
-        <button className="answer_button answer_button-cancel" onClick={() => { handleViewMode(false) }}>キャンセル</button>
-        <button className="answer_button answer_button-send" onClick={handleSendClick}>送信</button>
+    <div className="writeAnswer_wrapper">
+      <textarea className="writeAnswer_input" type="text" rows="3" onChange={handleTextChange} value={text} />
+      <div className="writeAnswer_bottom">
+        <button className="writeAnswer_button writeAnswer_button-cancel" onClick={() => { handleViewMode(false) }}>キャンセル</button>
+        <button className="writeAnswer_button writeAnswer_button-send" onClick={handleSendClick}>送信</button>
       </div>
     </div>
   )

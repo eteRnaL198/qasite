@@ -74,7 +74,7 @@ function App() {
           </HandleContentDataContext.Provider>
         </HandleSubjectDataContext.Provider>
       </AllDataContext.Provider>
-      <Post mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
+      <Post postData={contentData} mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
       <Content contentData={contentData} mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
     </div>
   );

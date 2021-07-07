@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ViewAnswer, WriteAnswer } from "../Answer/index";
 import "../../assets/styles/Content.css";
+import "../../assets/styles/Answer.css";
 import Back from "../../assets/images/back.svg";
 
 const Content = ({ contentData, mainScreen, handleMainScreen }) => {
@@ -18,22 +19,24 @@ const Content = ({ contentData, mainScreen, handleMainScreen }) => {
 
   return (
     (mainScreen !== "Content") ? null :
-    <div className="content">
-      <div className="content_inner">
-        {(!isViewMode) ? null :
-          <button onClick={() => { handleMainScreen("Timeline") }}>
-            <img className="content_back" src={Back} alt="back" />
-          </button>
-        }
-        {Object.keys(items).map((key, idx) => (
-          <div key={idx} className="contentItem">
-            <p className="contentItem_title">{items[key]}</p>
-            <p className="contentItem_text">{contentData.question[key]}</p>
-          </div>
-        ))}
+    <div className="content_wrapper">
+      <div className="content">
+        <div className="content_inner">
+          {(!isViewMode) ? null :
+            <button onClick={() => { handleMainScreen("Timeline") }}>
+              <img className="content_back" src={Back} alt="back" />
+            </button>
+          }
+          {Object.keys(items).map((key, idx) => (
+            <div key={idx} className="contentItem">
+              <p className="contentItem_title">{items[key]}</p>
+              <p className="contentItem_text">{contentData.question[key]}</p>
+            </div>
+          ))}
+        </div>
       </div>
       {(isViewMode) ? 
-        <ViewAnswer answerData={contentData.answers} handleViewMode={handleViewMode} />
+        <ViewAnswer subjectId={contentData.subjectId} postId={contentData.postId} answerData={contentData.answers} handleViewMode={handleViewMode} />
         :
         <WriteAnswer subjectId={contentData.subjectId} postId={contentData.postId} handleViewMode={handleViewMode} />
       }
