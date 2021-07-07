@@ -3,7 +3,6 @@ import "firebase/firestore";
 import { useState, useEffect, createContext } from "react";
 import './assets/styles/App.css';
 import { Timeline, Post, Content } from './screens/index';
-import writeData from "./data";
 
 export const AllDataContext = createContext();
 export const HandleSubjectDataContext = createContext();
@@ -74,7 +73,7 @@ function App() {
           </HandleContentDataContext.Provider>
         </HandleSubjectDataContext.Provider>
       </AllDataContext.Provider>
-      <Post postData={contentData} mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
+      <Post subjectData={subjectData} mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
       <Content contentData={contentData} mainScreen={mainScreen} handleMainScreen={handleMainScreen} />
     </div>
   );

@@ -4,7 +4,7 @@ import "firebase/firestore";
 import { Item } from "./index";
 import "../../assets/styles/Post.css";
 
-const Post = ({ postData, mainScreen, handleMainScreen}) => {
+const Post = ({ subjectData, mainScreen, handleMainScreen}) => {
   const [titleText, setTitleText] = useState("");
   const [purposeText, setPurposeText] = useState("");
   const [unknownText, setUnknownText] = useState("");
@@ -20,11 +20,11 @@ const Post = ({ postData, mainScreen, handleMainScreen}) => {
   const handleClick = () => {
     const db = firebase.firestore();
     (async () => {
-      await db.collection("subjects").doc(postData.subjectId).collection("posts").add({
+      await db.collection("subjects").doc(subjectData.subjectId).collection("posts").add({
         "answers": [],
         "question": {
           "title": titleText,
-          "purposbe": purposeText,
+          "purpose": purposeText,
           "unknown": unknownText,
           "tried": triedText,
         }
@@ -34,8 +34,6 @@ const Post = ({ postData, mainScreen, handleMainScreen}) => {
     })();
     handleMainScreen("Timeline");
   }
-
-  console.log(postData);
 
   const handleChange = (name, text) => {
     switch(name) {
@@ -50,6 +48,8 @@ const Post = ({ postData, mainScreen, handleMainScreen}) => {
         break;
       case "tried":
         setTriedText(text);
+        break;
+      default:
         break;
     }
   }
