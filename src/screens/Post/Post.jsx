@@ -19,20 +19,24 @@ const Post = ({ subjectData, mainScreen, handleMainScreen}) => {
   
   const handleClick = () => {
     const db = firebase.firestore();
-    (async () => {
-      await db.collection("subjects").doc(subjectData.subjectId).collection("posts").add({
-        "answers": [],
-        "question": {
-          "title": titleText,
-          "purpose": purposeText,
-          "unknown": unknownText,
-          "tried": triedText,
-        }
-      }).then(() => {
-        alert("投稿しました");
-      });
-    })();
-    handleMainScreen("Timeline");
+    if(titleText.trim() !== "" && purposeText.trim() !== "" && unknownText.trim() !== "" && triedText.trim() !== "") {
+      (async () => {
+        await db.collection("subjects").doc(subjectData.subjectId).collection("posts").add({
+          "answers": [],
+          "question": {
+            "title": titleText,
+            "purpose": purposeText,
+            "unknown": unknownText,
+            "tried": triedText,
+          }
+        }).then(() => {
+          alert("投稿しました");
+        });
+      })();
+      handleMainScreen("Timeline");
+    } else {
+      alert("すべての項目を入力してください");
+    }
   }
 
   const handleChange = (name, text) => {
