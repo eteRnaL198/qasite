@@ -27,6 +27,7 @@
   margin: 0 auto 24px auto;
   padding: 24px;
   width: 90%;
+  user-select: none;
 }
 .answerCard_text {
   font-size: 1.1rem;
